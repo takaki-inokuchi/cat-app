@@ -1,12 +1,16 @@
-import Link from "next/link";
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function Home() {
+  const { user } = useAuth();
+
   return (
-    <div className="p-4 text-center">
-      <h1 className="text-2xl font-bold mb-4">ホーム</h1>
-      <Link href="/login">
-        <span className="text-blue-500 underline">ログインページへ</span>
-      </Link>
+    <div>
+      <h2 className="text-2x1 font-bold mb-4">ようこそ猫アプリへ</h2>
+      {user ? (
+        <p>こんにちは、{user.displayName}さん！</p>
+      ) : (
+      <p>ログインして猫の管理を始めましょう！</p>
+      )}
     </div>
   );
 }
