@@ -1,13 +1,15 @@
 import '@/styles/globals.css';
 import { AuthProvider } from '@/contexts/AuthContext';
-import {Layout} from '@/components/Layout';
-
+import { Layout } from '@/components/Layout';
+import defaultSeoConfig from '@/lib/seo.config';
+import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 
-function App({Component,pageProps}: AppProps){
-  return(
+function App({ Component, pageProps }: AppProps) {
+  return (
     <AuthProvider>
       <Layout>
+        <DefaultSeo {...defaultSeoConfig} />
         <Component {...pageProps} />
       </Layout>
     </AuthProvider>
