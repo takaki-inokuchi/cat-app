@@ -8,7 +8,7 @@
 // postcss.config.js
 module.exports = {
   plugins: {
-    '@tailwindcss/postcss': {}, // ✅ Tailwind CSS v4 対応
+    '@tailwindcss/postcss': {}, // ✅ Tainomlwind CSS v4 対応
     autoprefixer: {},
   },
 };
