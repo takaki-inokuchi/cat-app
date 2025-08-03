@@ -9,7 +9,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({ user: null });//createContextを使用し、子にプロップスを渡せるように、渡す値はAuthContextTypeなので、userかnull←は初期値を指定して書く
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);//React.ReactNodeは描画できるすべての型を指定、<User | null>でどちらかの型が入るということ、初期値はnullということ
+  const [user, setUser] = useState<User | null>(null);//React.ReactNodeは描画できるすべての型を指定、<User | null>でどちらかの型が入るということ、初期値はnullということ、ユニオン型今回は<user | null>二つの型の選択肢を与えている
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
