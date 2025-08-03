@@ -4,7 +4,6 @@ import { loginWithGoogle, logout } from '@/lib/firebaseAuth';
 import Head from 'next/head';//SEOのために使用
 import { NextSeo } from 'next-seo';//SEO対策
 import Image from 'next/image';//ロゴ用
-import catLogo from '@/assent/cat-logo,png';//ロゴ画像
 
 export default function Home() {
   const { user } = useAuth();
@@ -18,8 +17,8 @@ export default function Home() {
       </Head>
 
       <main className="min-h-screen bg-gray-100 flex flex-col items-center justify-center text-center p-4">
-        <Image src={catLogo} alt="Cat App Logo" width={100} height={100} className="mb-4" />
-        <h1 className="text3x1 font-bold mb-6 text-gray-800">ようこそ、猫アプリへ</h1>
+        <Image src={"/logo.png"} alt="Cat App Logo" width={100} height={100} className="mb-4" />
+        <h1 className="text-3x1 font-bold mb-6 text-gray-800">ようこそ、猫アプリへ</h1>
 
         {user ? (
           <div>
