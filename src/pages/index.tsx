@@ -10,11 +10,7 @@ export default function Home() {
 
   return (
     <div>
-      <NextSeo title="猫じゃらし | ホーム" description="猫を管理できるアプリです"></NextSeo>
-
-      <Head>
-        <title>猫アプリ</title>
-      </Head>
+      <NextSeo title="猫アプリ | ホーム" description="猫を管理できるアプリです"></NextSeo>
 
       <main className="min-h-screen bg-gray-100 flex flex-col items-center justify-center text-center p-4">
         <Image src={"/logo.png"} alt="Cat App Logo" width={100} height={100} className="mb-4" />
