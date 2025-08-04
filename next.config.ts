@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   basePath: "/cat-app",
   assetPrefix: "/cat-app/",
+  output: "export",
+  images: {
+    unoptimized: true
+  }
 };
 
 export default nextConfig;
