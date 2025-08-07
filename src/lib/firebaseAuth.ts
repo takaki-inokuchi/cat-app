@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";//firebaseをアプリで使用す�
 import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithRedirect, signOut } from "firebase/auth";//getAuthは認証機能を使用するための関数
 
 const isMobile = (): boolean => {
-  if (typeof window === 'undefined') return false;//windowがなければ、falseが返される。→これがないとSSR中だと(next.js)では一部のコードはサーバー側で実行されることがあるため、何も返さない致命的なエラーになる。サーバーサイドレンダリング
+  if(typeof window === 'undefined') return false;//windowがなければ、falseが返される。→これがないとSSR中だと(next.js)では一部のコードはサーバー側で実行されることがあるため、何も返さない致命的なエラーになる。サーバーサイドレンダリング
   return /iPhone|iPod|Android/i.test(window.navigator.userAgent);//test(調べたい文字列)を使用してtrueかfalseの判定、window.navigatorでuserの情報を取得、スマホとかならture
 };
 
@@ -27,7 +27,6 @@ const loginWithGoogle = () => {
   }
 };
 
-signInWithPopup(auth, provider);//(どこで,どの方法か)
 const logout = () => signOut(auth);
 
 export { auth, loginWithGoogle, logout };
