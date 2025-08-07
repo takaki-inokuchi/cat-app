@@ -16,13 +16,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(currentUser);//ログイン状態が変化するたびにauth,(currentUser)←コールバックが呼び出される
     });//引数はauthと関数のsetUserまで分かれていることに注意
     return () => unsubscribe();
-  }, []);
+  }, []);//useEffectの中でreturnを使用すると監視をonAuthStateChangedを終了させるという意味
 
   return (
     <AuthContext.Provider value={{ user }}>
       {children}
     </AuthContext.Provider>
-  );
+  );//app.texで使用。囲まれた内容の中ではログイン状態が保存されるようになっている
 };
 
 export const useAuth = () => useContext(AuthContext);//useContext(AuthContext) とすると { user: null } が返ってきます。useAuthという名前で使えるようにしている

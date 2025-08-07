@@ -35,7 +35,7 @@ export default function RegisterPage() {
   return (
     <div>
       <NextSeo
-        title="猫登録 ｜ 管理アプリ"
+        title="猫登録 | 管理アプリ"
         description="猫を登録するフォームです。"
         openGraph={{
           url: "https???",
