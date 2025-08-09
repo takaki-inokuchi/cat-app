@@ -17,11 +17,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
-    });
-
+    });//unsubscribe
     getRedirectResult(auth)
       .then((result) => {
         if (result?.user) {
@@ -33,6 +33,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
     return () => unsubscribe();
+
   }, []);//useEffectの中でreturnを使用すると監視をonAuthStateChangedを終了させるという意味
 
   return (
