@@ -1,9 +1,26 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { loginWithGoogle, logout } from '@/lib/firebaseAuth';
+import { loginWithGoogle, logout, auth } from '@/lib/firebaseAuth';
+import { getRedirectResult } from 'firebase/auth';
 
 const LoginPage = () => {
   const { user } = useAuth();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result?.user) {
+          console.log("リダイレクトログイン成功：", result.user);
+        } else {
+          console.log("リダイレクト結果なし");
+        }
+      } catch (err) {
+        console.error("リダイレクトログインエラー", err);
+      }
+    })();
+  }, []);
 
   return (
     <div className="p-8 text-center">

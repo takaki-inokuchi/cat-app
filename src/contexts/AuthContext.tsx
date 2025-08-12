@@ -42,6 +42,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       {children}
     </AuthContext.Provider>
   );//app.texで使用。囲まれた内容の中ではログイン状態が保存されるようになっている
-};
+};//コンポーネントの上位を「Provider」で囲むとその配下の子コンポーネントたちはvalueに渡したデータを自由に読み取ることができる　「.」で区切っているのはオブ雀殿Providerを使用するという意味（特別なプロパティ）
 
 export const useAuth = () => useContext(AuthContext);//useContext(AuthContext) とすると { user: null } が返ってきます。useAuthという名前で使えるようにしている
