@@ -3,26 +3,13 @@ import { useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { loginWithGoogle, logout, auth } from '@/lib/firebaseAuth';
 import { getRedirectResult } from 'firebase/auth';
-import Head from 'next/head';//SEOのために使用
 import { NextSeo } from 'next-seo';//SEO対策
 import Image from 'next/image';//ロゴ用
+import { User } from 'firebase/auth';
+import { useState } from 'react';
 
 export default function Home() {
   const { user, loading } = useAuth();
-
-  useEffect(() => {
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result?.user) {
-          console.log("リダイレクトログイン成功：", result.user);
-        } else {
-          console.log("リダイレクト結果なし");
-        }
-      })
-      .catch((error) => {
-        console.error("リダイレクトログインエラー：", error);
-      });
-  }, []);
 
   if (loading) {
     return (

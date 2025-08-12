@@ -7,19 +7,19 @@ import { getRedirectResult } from 'firebase/auth';
 const LoginPage = () => {
   const { user } = useAuth();
 
- useEffect(() => {
-  getRedirectResult(auth)
-  .then((result) =>{
-    if(result?.user){
-      console.log("リダイレクトログイン成功：",result.user);
-    }else{
-      console.log("リダイレクト結果なし");
-    }
-  })
-  .catch((error)=> {
-    console.error("リダイレクトログインエラー：",error);
-  });
- },[]);
+  useEffect(() => {
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result?.user) {
+          console.log("リダイレクトログイン成功：", result.user);
+        } else {
+          console.log("リダイレクト結果なし");
+        }
+      })
+      .catch((error) => {
+        console.error("リダイレクトログインエラー：", error);
+      });
+  }, []);
 
   return (
     <div className="p-8 text-center">

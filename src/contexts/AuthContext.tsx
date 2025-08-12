@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';//createContextは親(pages)から子(firebaseAuth)に値を渡すため useContextで値を受け取る
-import { User, onAuthStateChanged } from 'firebase/auth';//Userはログインしているユーザーの情報,onAuthStateChangedはリアルタイムで状態を監視
+import { User, onAuthStateChanged, getRedirectResult } from 'firebase/auth';//Userはログインしているユーザーの情報,onAuthStateChangedはリアルタイムで状態を監視
 import { auth } from '@/lib/firebaseAuth';//初期化済みオブジェクトを取得
 
 type AuthContextType = {
@@ -17,6 +17,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result?.user) {
+          console.log("リダイレクトログイン成功:", result.user);
+          setUser(result.user);
+        }
+      })
+      .catch((error) => {
+        console.error("リダイレクト結果取得エラー:", error);
+      });
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);

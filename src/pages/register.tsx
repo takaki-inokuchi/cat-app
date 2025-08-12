@@ -75,7 +75,7 @@ export default function RegisterPage() {
 
           <div className="text-center">
             <button type="submit" className="bg-blue-400 hover:bg-blue-600 text-white font-semibold py-1 px-3 rounded" >
-              {loading?"登録中...":"登録"}
+              {loading ? "登録中..." : "登録"}
             </button>
             {success && <p className="text-green-600 mt-2">登録が完了しました！</p>}
           </div>
