@@ -1,13 +1,8 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { loginWithGoogle, logout} from '@/lib/firebaseAuth';
-import { auth } from '@/lib/firebase';
-import { getRedirectResult } from 'firebase/auth';
 import { NextSeo } from 'next-seo';//SEO対策
 import Image from 'next/image';//ロゴ用
-import { User } from 'firebase/auth';
-import { useState } from 'react';
 
 export default function Home() {
   const { user, loading } = useAuth();

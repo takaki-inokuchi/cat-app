@@ -17,28 +17,30 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    let unsubscribe: (() => void) | null = null;
-
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result?.user) {
-          setUser(result.user);
-          console.log("リダイレクトログイン成功:", result.user);
-        }
-      })
-      .catch((error) => {
-        console.error("リダイレクト結果取得エラー:", error);
-      })
-      .finally(() => {
-        unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-          setUser(currentUser);
-          setLoading(false);
-        });//unsubscribeは朗読を辞める、登録解除の意味
-      });
-    return () => {
-      if (unsubscribe) {
-        unsubscribe();
+    let isMounted = true;
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (isMounted) {
+        setUser(currentUser);
+        setLoading(false);
       }
+    });
+
+    const checkRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result?.user && isMounted) {
+          setUser(result.user);
+        }
+      } catch (error) {
+        console.error('リダイレクト結果取得エラー:', error);
+      }
+    };
+
+    checkRedirectResult();
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
     };
   }, []);//useEffectの中でreturnを使用すると監視をonAuthStateChangedを終了させるという意味
 
