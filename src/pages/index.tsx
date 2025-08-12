@@ -42,5 +42,5 @@ export default function Home() {
         }
       </main>
     </div>
-  );//パディング、左右px py上下 lgは文字サイズを少し大きく16px→18px  pは上下左右に適用
+  );
 }

@@ -1,19 +1,19 @@
-import { createContext, useContext, useEffect, useState } from 'react';//createContextは親(pages)から子(firebaseAuth)に値を渡すため useContextで値を受け取る
-import { User, onAuthStateChanged, getRedirectResult } from 'firebase/auth';//Userはログインしているユーザーの情報,onAuthStateChangedはリアルタイムで状態を監視
-import { auth } from '@/lib/firebase';//初期化済みオブジェクトを取得
+import { createContext, useContext, useEffect, useState } from 'react';
+import { User, onAuthStateChanged, getRedirectResult } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 
 type AuthContextType = {
-  user: User | null;//型を指定
+  user: User | null;
   loading: boolean;
-};//型エイリアスの定義、userというプロパティがあり、型は、userまたはnull
+};
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
-});//createContextを使用し、子にプロップスを渡せるように、渡す値はAuthContextTypeなので、userかnull←は初期値を指定して書く
+});
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);//React.ReactNodeは描画できるすべての型を指定、<User | null>でどちらかの型が入るということ、初期値はnullということ、ユニオン型今回は<user | null>二つの型の選択肢を与えている
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -42,13 +42,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       isMounted = false;
       unsubscribe();
     };
-  }, []);//useEffectの中でreturnを使用すると監視をonAuthStateChangedを終了させるという意味
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, loading }}>
       {children}
     </AuthContext.Provider>
-  );//app.texで使用。囲まれた内容の中ではログイン状態が保存されるようになっている
-};//コンポーネントの上位を「Provider」で囲むとその配下の子コンポーネントたちはvalueに渡したデータを自由に読み取ることができる　「.」で区切っているのはオブ雀殿Providerを使用するという意味（特別なプロパティ）
+  );
+};
 
-export const useAuth = () => useContext(AuthContext);//useContext(AuthContext) とすると { user: null } が返ってきます。useAuthという名前で使えるようにしている  
+export const useAuth = () => useContext(AuthContext);
