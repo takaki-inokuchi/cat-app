@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';//createContextは親(pages)から子(firebaseAuth)に値を渡すため useContextで値を受け取る
-import { User, onAuthStateChanged, getRedirectResult, GoogleAuthProvider } from 'firebase/auth';//Userはログインしているユーザーの情報,onAuthStateChangedはリアルタイムで状態を監視
+import { User, onAuthStateChanged } from 'firebase/auth';//Userはログインしているユーザーの情報,onAuthStateChangedはリアルタイムで状態を監視
 import { auth } from '@/lib/firebaseAuth';//初期化済みオブジェクトを取得
 
 type AuthContextType = {
@@ -21,17 +21,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(currentUser);
       setLoading(false);
     });//unsubscribeは朗読を辞める、登録解除の意味
-
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result?.user) {
-          setUser(result.user);
-          setLoading(false);
-        }
-      })
-      .catch((error) => {
-        console.error('リダイレクトログインエラー:', error);
-      });
 
     return () => unsubscribe();//監視を終了するとき(ブラウザを閉じたり)onAuthStateChangedが反応してunsubscribeが呼び出されてuseEffectでreturnが呼び出されると、クリーンアップという仕組みになるので監視が終了する
 
