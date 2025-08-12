@@ -17,22 +17,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
-    });//unsubscribe
+    });//unsubscribeは朗読を辞める、登録解除の意味
+
     getRedirectResult(auth)
       .then((result) => {
         if (result?.user) {
           setUser(result.user);
+          setLoading(false);
         }
       })
       .catch((error) => {
         console.error('リダイレクトログインエラー:', error);
       });
 
-    return () => unsubscribe();
+    return () => unsubscribe();//監視を終了するとき(ブラウザを閉じたり)onAuthStateChangedが反応してunsubscribeが呼び出されてuseEffectでreturnが呼び出されると、クリーンアップという仕組みになるので監視が終了する
 
   }, []);//useEffectの中でreturnを使用すると監視をonAuthStateChangedを終了させるという意味
 

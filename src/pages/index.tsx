@@ -6,7 +6,15 @@ import { NextSeo } from 'next-seo';//SEO対策
 import Image from 'next/image';//ロゴ用
 
 export default function Home() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-gray-100 flex flex-col items-center justify-center text-center p-4">
+        <p>認証状態を確認中...</p>
+      </main>
+    );
+  }
 
   return (
     <div>

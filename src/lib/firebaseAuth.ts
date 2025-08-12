@@ -15,8 +15,8 @@ const firebaseConfig = {
   appId: "1:374133148516:web:32d784a6d9490f7f3d0871"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const app = initializeApp(firebaseConfig);//firebaseConfig は Firebase コンソールで発行される設定情報で、APIキーやプロジェクトIDなどが入っています。認証機能を使用するにはどのプロジェクトを使用するか決定するため　initializeは初期化
+const auth = getAuth(app);//Authentication サービスのインスタンスを取得
 const provider = new GoogleAuthProvider();//GoogleAuthProvider→google用のプロバイダーを作成
 
 const loginWithGoogle = () => {
