@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';//createContextは親(pages)から子(firebaseAuth)に値を渡すため useContextで値を受け取る
 import { User, onAuthStateChanged, getRedirectResult } from 'firebase/auth';//Userはログインしているユーザーの情報,onAuthStateChangedはリアルタイムで状態を監視
-import { auth } from '@/lib/firebaseAuth';//初期化済みオブジェクトを取得
+import { auth } from '@/lib/firebase';//初期化済みオブジェクトを取得
 
 type AuthContextType = {
   user: User | null;//型を指定

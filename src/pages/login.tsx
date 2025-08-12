@@ -1,14 +1,15 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { loginWithGoogle, logout, auth } from '@/lib/firebaseAuth';
+import { loginWithGoogle, logout } from '@/lib/firebaseAuth';
+import { auth } from '@/lib/firebase';
 import { getRedirectResult } from 'firebase/auth';
 
 const LoginPage = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    
+
     getRedirectResult(auth)
       .then((result) => {
         if (result?.user) {
