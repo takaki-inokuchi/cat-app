@@ -14,7 +14,7 @@ export default function Home() {
   if (loading) {
     return (
       <main className="min-h-screen bg-gray-100 flex flex-col items-center justify-center text-center p-4">
-        <p>認証状態を確認中...</p>
+        <p>認証状態を確認中🐈...</p>
       </main>
     );
   }

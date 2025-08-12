@@ -17,23 +17,29 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    let unsubscribe: (() => void) | null = null;
+
     getRedirectResult(auth)
       .then((result) => {
         if (result?.user) {
-          console.log("リダイレクトログイン成功:", result.user);
           setUser(result.user);
+          console.log("リダイレクトログイン成功:", result.user);
         }
       })
       .catch((error) => {
         console.error("リダイレクト結果取得エラー:", error);
+      })
+      .finally(() => {
+        unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+          setUser(currentUser);
+          setLoading(false);
+        });//unsubscribeは朗読を辞める、登録解除の意味
       });
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });//unsubscribeは朗読を辞める、登録解除の意味
-
-    return () => unsubscribe();//監視を終了するとき(ブラウザを閉じたり)onAuthStateChangedが反応してunsubscribeが呼び出されてuseEffectでreturnが呼び出されると、クリーンアップという仕組みになるので監視が終了する
-
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, []);//useEffectの中でreturnを使用すると監視をonAuthStateChangedを終了させるという意味
 
   return (
@@ -43,4 +49,4 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );//app.texで使用。囲まれた内容の中ではログイン状態が保存されるようになっている
 };//コンポーネントの上位を「Provider」で囲むとその配下の子コンポーネントたちはvalueに渡したデータを自由に読み取ることができる　「.」で区切っているのはオブ雀殿Providerを使用するという意味（特別なプロパティ）
 
-export const useAuth = () => useContext(AuthContext);//useContext(AuthContext) とすると { user: null } が返ってきます。useAuthという名前で使えるようにしている
+export const useAuth = () => useContext(AuthContext);//useContext(AuthContext) とすると { user: null } が返ってきます。useAuthという名前で使えるようにしている  

@@ -8,6 +8,7 @@ const LoginPage = () => {
   const { user } = useAuth();
 
   useEffect(() => {
+    
     getRedirectResult(auth)
       .then((result) => {
         if (result?.user) {
