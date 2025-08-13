@@ -17,31 +17,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    let isMounted = true;
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (isMounted) {
-        setUser(currentUser);
-        setLoading(false);
-      }
+      setUser(currentUser);
+      setLoading(false);
     });
 
-    const checkRedirectResult = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result?.user && isMounted) {
-          setUser(result.user);
-        }
-      } catch (error) {
-        console.error('リダイレクト結果取得エラー:', error);
-      }
-    };
-
-    checkRedirectResult();
-
-    return () => {
-      isMounted = false;
-      unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
   return (

@@ -22,6 +22,7 @@ function App({ Component, pageProps }: AppProps) {
         console.log("Googleリダイレクトログインエラー：", error);
       });
   }, []);
+  
   return (
     <AuthProvider>
       <Layout>
@@ -33,9 +34,3 @@ function App({ Component, pageProps }: AppProps) {
 }
 
 export default App;
-
-
-Cloud Functions や firebase.json の rewrites は不要
-
-📌 つまり、あなたが今やろうとしている
-「functions フォルダを作って SSR セットアップ」は、Vercel で Next.js をホストしている場合は必要ない です。

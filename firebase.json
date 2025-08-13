@@ -5,12 +5,12 @@
     "rewrites": [
       {
         "source": "**",
-        "function": "nextApp"
+        "function": ""
       }
     ]
   },
   "functions": {
-    "source": "functions"
+    "source": ""
   }
 }
 
